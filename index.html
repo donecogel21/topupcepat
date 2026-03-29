@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Done Cogel - Jasa PayPal Terpercaya</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); }
+        .glass-card { background: white; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        /* Modal Background */
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- RUNNING TEXT -->
+    <div class="bg-blue-600 text-white py-2 overflow-hidden whitespace-nowrap text-[10px] font-bold uppercase tracking-widest">
+        <div class="inline-block animate-marquee px-4">
+            🚀 Update Rate: $1 = Rp 13.500 | ✅ Status: Admin Online | 📱 WhatsApp: 0882-7432-5328 | 💎 Amanah & Terpercaya
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2">
+                <div class="bg-blue-600 p-2 rounded-xl text-white shadow-lg"><i class="fas fa-wallet text-xl"></i></div>
+                <span class="text-2xl font-black italic tracking-tight">Done <span class="text-blue-600">Cogel</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center space-x-8 text-[11px] font-black uppercase tracking-widest text-slate-500">
+                <a href="#beranda" class="hover:text-blue-600 transition">Beranda</a>
+                <a href="#cara-order" class="hover:text-blue-600 transition">Cara Order</a>
+                <a href="#testimoni" class="hover:text-blue-600 transition">Testimoni</a>
+                <a href="#blog" class="hover:text-blue-600 transition">Blog</a>
+                <a href="#faq" class="hover:text-blue-600 transition">Bantuan</a>
+                <button onclick="openModal()" class="text-slate-900 border-l pl-8 hover:text-blue-600 transition">Masuk</button>
+                <a href="https://wa.me/6288274325328" class="bg-blue-600 text-white px-6 py-2.5 rounded-full shadow-lg shadow-blue-100">WhatsApp</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-2xl"><i class="fas fa-bars"></i></button>
+        </div>
+
+        <!-- Mobile Menu Items -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b p-6 space-y-4 shadow-xl">
+            <a href="#beranda" onclick="toggleMobileMenu()" class="block font-bold">Beranda</a>
+            <a href="#cara-order" onclick="toggleMobileMenu()" class="block font-bold">Cara Order</a>
+            <a href="#testimoni" onclick="toggleMobileMenu()" class="block font-bold">Testimoni</a>
+            <a href="#blog" onclick="toggleMobileMenu()" class="block font-bold">Blog</a>
+            <a href="#faq" onclick="toggleMobileMenu()" class="block font-bold">FAQ & S&K</a>
+            <button onclick="openModal(); toggleMobileMenu();" class="block font-bold text-blue-600">Masuk</button>
+        </div>
+    </nav>
+
+    <!-- HERO & KALKULATOR -->
+    <header id="beranda" class="hero-gradient text-white py-16 px-4">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 text-center lg:text-left">
+                <h1 class="text-5xl md:text-6xl font-black uppercase italic leading-tight">Cairkan <span class="text-blue-400">PayPal</span> <br>Gak Pakai Lama.</h1>
+                <p class="text-blue-100 opacity-80">Jasa convert dan top up saldo PayPal dengan rate terbaik. Proses hitungan menit langsung masuk rekening.</p>
+            </div>
+
+            <div class="glass-card p-8 text-slate-900 max-w-md mx-auto w-full">
+                <h3 class="font-black uppercase mb-6 flex items-center gap-2"><i class="fas fa-calculator text-blue-600"></i> Kalkulator Rate</h3>
+                <div class="space-y-4">
+                    <!-- Opsi Jual/Beli -->
+                    <div class="grid grid-cols-2 gap-2 bg-slate-100 p-1 rounded-xl">
+                        <button id="btnConvert" onclick="changeType('convert')" class="py-3 rounded-lg font-bold text-xs bg-white text-blue-600 shadow-sm transition">JUAL SALDO</button>
+                        <button id="btnTopup" onclick="changeType('topup')" class="py-3 rounded-lg font-bold text-xs text-slate-500 transition">BELI SALDO</button>
+                    </div>
+                    <input type="hidden" id="orderType" value="convert">
+
+                    <div class="relative">
+                        <label class="text-[9px] font-black uppercase text-slate-400 absolute left-4 top-2">Jumlah USD</label>
+                        <input type="number" id="usdValue" oninput="hitung()" value="100" class="w-full p-4 pt-7 bg-slate-100 rounded-xl font-black text-xl outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <div class="bg-slate-900 text-white p-6 rounded-2xl">
+                        <p class="text-[9px] uppercase font-bold opacity-50 mb-1" id="labelHasil">Estimasi Anda Terima</p>
+                        <p id="hasilIDR" class="text-3xl font-black text-blue-400">Rp 0</p>
+                        <p class="text-[10px] mt-4 opacity-50 border-t border-white/10 pt-2">Rate: Rp <span id="rateNow">13.500</span> / $1</p>
+                    </div>
+
+                    <button onclick="kirimWA()" class="w-full bg-green-500 hover:bg-green-600 text-white font-black py-4 rounded-xl shadow-lg flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp text-xl"></i> TRANSAKSI SEKARANG
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION CARA ORDER -->
+    <section id="cara-order" class="py-24 px-4 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-black text-center uppercase italic mb-16">Cara <span class="text-blue-600">Order</span></h2>
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="p-8 bg-white border rounded-3xl hover:border-blue-500 transition">
+                <div class="text-4xl font-black text-slate-200 mb-4 text-right">01</div>
+                <h4 class="font-bold mb-2">Hitung Saldo</h4>
+                <p class="text-sm text-slate-500">Cek rate hari ini di kalkulator untuk melihat estimasi hasil.</p>
+            </div>
+            <div class="p-8 bg-white border rounded-3xl hover:border-blue-500 transition">
+                <div class="text-4xl font-black text-slate-200 mb-4 text-right">02</div>
+                <h4 class="font-bold mb-2">Hubungi Admin</h4>
+                <p class="text-sm text-slate-500">Klik tombol WhatsApp dan admin akan memberikan instruksi lengkap.</p>
+            </div>
+            <div class="p-8 bg-white border rounded-3xl hover:border-blue-500 transition">
+                <div class="text-4xl font-black text-slate-200 mb-4 text-right">03</div>
+                <h4 class="font-bold mb-2">Proses Kirim</h4>
+                <p class="text-sm text-slate-500">Kirimkan saldo PayPal atau uang Anda sesuai instruksi admin.</p>
+            </div>
+            <div class="p-8 bg-white border rounded-3xl hover:border-blue-500 transition">
+                <div class="text-4xl font-black text-slate-200 mb-4 text-right">04</div>
+                <h4 class="font-bold mb-2">Cair 5 Menit</h4>
+                <p class="text-sm text-slate-500">Tunggu proses pengecekan dan dana akan cair ke rekening/e-wallet Anda.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION FAQ & TESTIMONI & BLOG (Silakan diisi sesuai kode sebelumnya) -->
+    <section id="testimoni" class="py-10 text-center text-slate-400 text-sm">-- Section Testimoni --</section>
+    <section id="blog" class="py-10 text-center text-slate-400 text-sm">-- Section Blog --</section>
+    <section id="faq" class="py-10 text-center text-slate-400 text-sm">-- Section FAQ & S&K --</section>
+
+    <!-- MODAL MASUK -->
+    <div id="loginModal" class="modal flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-[32px] w-full max-w-md relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-900"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-2xl font-black mb-6 text-center uppercase italic">Login Member</h3>
+            <form class="space-y-4">
+                <input type="email" placeholder="Email" class="w-full p-4 bg-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="password" placeholder="Password" class="w-full p-4 bg-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="button" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl">Masuk</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- WA MELAYANG -->
+    <a href="https://wa.me/6288274325328" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl z-[9999] animate-bounce">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Data Rate (Ganti di sini)
+        const RATES = { convert: 13500, topup: 16800 };
+
+        // 1. Fungsi Ganti Tipe (Jual/Beli)
+        function changeType(tipe) {
+            document.getElementById('orderType').value = tipe;
+            const btnConvert = document.getElementById('btnConvert');
+            const btnTopup = document.getElementById('btnTopup');
+            const labelHasil = document.getElementById('labelHasil');
+
+            if(tipe === 'convert') {
+                btnConvert.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+                btnTopup.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+                btnTopup.classList.add('text-slate-500');
+                labelHasil.innerText = "Estimasi Anda Terima (IDR)";
+            } else {
+                btnTopup.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+                btnConvert.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+                btnConvert.classList.add('text-slate-500');
+                labelHasil.innerText = "Estimasi Anda Bayar (IDR)";
+            }
+            hitung();
+        }
+
+        // 2. Fungsi Hitung Kalkulator
+        function hitung() {
+            const tipe = document.getElementById('orderType').value;
+            const nominal = document.getElementById('usdValue').value;
+            const rateSekarang = RATES[tipe];
+            
+            document.getElementById('rateNow').innerText = rateSekarang.toLocaleString('id-ID');
+            const total = nominal * rateSekarang;
+            document.getElementById('hasilIDR').innerText = "Rp " + total.toLocaleString('id-ID');
+        }
+
+        // 3. Fungsi Kirim WhatsApp
+        function kirimWA() {
+            const tipe = document.getElementById('orderType').value;
+            const nominal = document.getElementById('usdValue').value;
+            if(!nominal || nominal <= 0) { alert("Masukkan nominal!"); return; }
+            
+            const msg = `Halo Admin Done Cogel, saya ingin ${tipe === 'convert' ? 'Jual Saldo PayPal' : 'Beli Saldo PayPal'} sebesar $${nominal}. Mohon instruksinya.`;
+            window.open(`https://wa.me/6288274325328?text=${encodeURIComponent(msg)}`);
+        }
+
+        // 4. Fungsi Modal
+        function openModal() { document.getElementById('loginModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('loginModal').style.display = 'none'; }
+
+        // 5. Fungsi Menu Mobile
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Jalankan hitung saat pertama kali load
+        window.onload = hitung;
+
+        // Tutup modal jika klik luar kotak
+        window.onclick = function(e) {
+            if (e.target == document.getElementById('loginModal')) closeModal();
+        }
+    </script>
+
+    <style>
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .animate-marquee { animation: marquee 20s linear infinite; }
+    </style>
+</body>
+                      </html>
